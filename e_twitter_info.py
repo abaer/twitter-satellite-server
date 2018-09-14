@@ -79,10 +79,10 @@ def update_user_info(filtered_label_dict, s):
         label_users = [stat["user"]["id_str"] for stat in val["statuses"]]
         all_users.update(label_users)
         #Do Labels
+        # if str(l).isdigit():
         if str(l).isdigit() and "label_info" not in val:
-            # if str(l).isdigit():
-            post_data = get_twitter_info(l, val["statuses"][0])
-            val["label_info"] = post_data
+            post_data = get_twitter_info(l, val["statuses"][-1])
+            filtered_label_dict[l]["label_info"] = post_data
             if "user" in post_data:
                 all_users.add(post_data["user"])
     # all_users_lookup = [u for u in all_users if u not in user_data]
@@ -95,11 +95,11 @@ def update_user_info(filtered_label_dict, s):
         for this_lookup in user_chunks:
             user_dict_lookup = do_user_lookup(this_lookup, s)
             user_data.update(user_dict_lookup)
-    return user_data
+    return user_data, filtered_label_dict
 
 
 def control(filtered_label_dict, s):
-    user_data = update_user_info(filtered_label_dict, s)
+    user_data, filtered_label_dict = update_user_info(filtered_label_dict, s)
     filtered_label_dict = update_dict_with_user_info(filtered_label_dict, user_data)
     utils.write_to_s3(
         filtered_label_dict,

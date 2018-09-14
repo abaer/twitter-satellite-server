@@ -168,13 +168,16 @@ def log(string, title=""):
 ### Data Utils
 def get_quoted_status(status):
     quoted_status = {}
-    if "retweeted_status" in status:
-        quoted_status = status['retweeted_status']
-    elif "is_quote_status" in status and status["is_quote_status"] == True:
+    if "is_quote_status" in status and status["is_quote_status"] == True:
         if "quoted_status" in status:
             quoted_status = status["quoted_status"]
+        elif "retweeted_status" in status and 'quoted_status' in status["retweeted_status"]:
+            quoted_status = status['retweeted_status']['quoted_status']
         else:
-            print("? atypical status embed")
+            print("? Anomylous embed")
+    elif "retweeted_status" in status:
+        quoted_status = status['retweeted_status']
+    
     return quoted_status
 
 # def get_quoted_status(status):
@@ -251,7 +254,7 @@ def getDefaultSettings():
                    'OZO7eEaK3YNb19Weflt9jytdQ',
                    'oEoYGe0mliUB924JlFsz97bFwvhQpdqJao577FsYhVvy3r644w'))
     # s3dir = 'data-aws/gen_two/'
-    s3dir = 'data-aws/test_dir_om_2/'
+    s3dir = 'data-aws/gen_two/'
     settings = {"t":t, "s3dir":s3dir}
     return settings
 

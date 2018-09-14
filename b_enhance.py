@@ -95,16 +95,9 @@ def enhance(batch_enhanced):
     utils.log(len(filtered_enhanced_batch), "Number enhanced batch statuses: ")
     return filtered_enhanced_batch
 
-
 def control(date_filtered_batch, s):
-    # statuses_enhanced = utils.read_from_s3(utils.file_name(sufix="_enhanced"), directory=s["s3dir"], seed=[])
     batch_enhanced = enhance(date_filtered_batch)
-    # utils.write_to_s3(
-    #     batch_enhanced,
-    #     utils.file_name(sufix="_batch_enhanced_full_testxxx"),
-    #     directory=s["s3dir"])
     return batch_enhanced
-
 
 if __name__ == "__main__":
     sd = utils.getDefaultSettings()
