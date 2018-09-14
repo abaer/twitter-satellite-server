@@ -12,8 +12,6 @@ def get_twitter_info(label, stat):
         ## NEW IMAGE REF
         image_ref = utils.val_or_default2(["extended_entities", "media", [0], "media_url"], quoted_status, default="")
         ## NEW IMAGE REF
-        # print(str(quoted_status["id"]))
-        # print(image_ref)
         post_data = {
             "type": "twitter_id",
             "id": str(quoted_status["id"]),
@@ -34,14 +32,6 @@ def make_user_chunks(users, n=100):
 def do_user_lookup(users, s):
     ts = ",".join(users)
     users_lookup = s["t"].users.lookup(user_id=str(ts))
-    # user_dict_lookup = {
-    #     str(user["id"]): {
-    #         "name": user["name"],
-    #         "screen_name": user["screen_name"],
-    #         "profile_image_url": user["profile_image_url"]
-    #     }
-    #     for user in users_lookup
-    # }
     user_dict_lookup = {}
     for user in users_lookup:
         user_id = user["id_str"]
@@ -109,11 +99,8 @@ def update_user_info(filtered_label_dict, s):
 
 
 def control(filtered_label_dict, s):
-    # user_data = utils.read_from_s3("user_data", directory=s["s3dir"])
-    # user_data = update_user_info(filtered_label_dict, user_data, s)
     user_data = update_user_info(filtered_label_dict, s)
     filtered_label_dict = update_dict_with_user_info(filtered_label_dict, user_data)
-    # utils.write_to_s3(user_data, "user_data", directory=s["s3dir"])
     utils.write_to_s3(
         filtered_label_dict,
         utils.file_name(prefix='_batch_filt_label_dict_enhanced_'),

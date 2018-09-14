@@ -3,11 +3,8 @@ import time
 
 def get_embedded_id(stat):
     quoted_status = utils.get_quoted_status(stat)
-    # embed = utils.find("quoted_status_id", quoted_status)
     embed = utils.val_or_default2(["quoted_status_id"],quoted_status)
-    # first = utils.find("quoted_status_id", stat)
     first = utils.val_or_default2(["quoted_status_id"],stat)
-    # first_urls = utils.find(["entities", "urls", "expanded_url"], stat)
     first_urls = utils.val_or_default2(["entities", "urls", [], "expanded_url"],stat)
     return first, embed, first_urls
 
@@ -34,10 +31,6 @@ def get_next_level(status, s):
         this_embed, next_embed, this_urls = [], [], []
         embed_status = {}
         utils.log(exc, "Error in getting deep status: ")
-
-    # this_embed = [this_embed] if this_embed != None else []
-    # next_embed = [next_embed] if next_embed != None else []
-    # this_urls = process_urls(this_urls) if this_urls != None else []
     
     if len(this_urls) > 0:
         this_urls = process_urls(this_urls) 
@@ -63,15 +56,12 @@ def trace_links_down(statuses_enhanced, s):
                 count += 1
                 this_embed, next_embed, this_urls, quoted_status = get_next_level(quoted_status, s)
                 qt = utils.get_quoted_status(quoted_status)
-                # ft = qt["full_text"] if "full_text" in qt else None
-                print(initial_id, this_embed, next_embed, this_urls, count)
+                # print(initial_id, this_embed, next_embed, this_urls, count)
                 if this_urls != []:
                     max_url = this_urls
                 max_embed = this_embed
             #for links, add to "labels" so we can do the short url processing after
             #for refs, create entry "labels_proc so we preserve the original ref and can store the quoted status.
-    #		 if (max_embed != None and max_embed != []) or max_url != None:
-    #			 if max_url != None:
             root["satellite_enhanced"]["labels"]["quoted_labels_links_deep"] = max_url
             root["satellite_enhanced"]["labels"]["quoted_labels_twrefs_deep"] = max_embed
             if max_embed != None and max_embed != []:

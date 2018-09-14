@@ -2,7 +2,6 @@ import re
 import utils
 from urllib.parse import urlparse
 from newspaper import Article, Config
-# import cachetools
 import pickle
 
 ua = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_5) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/11.1.1 Safari/605.1.15'
@@ -14,7 +13,6 @@ def get_title_urls(labels_raw, label_to_titles):
         l for l in labels
         if re.findall("^https://.*|^http://.*", l) and l not in label_to_titles
     ]
-    # urls = [l for l in labels if not str(l)[0:12]=="twitter_link" and re.findall("^https://.*|^http://.*", l)]
     utils.log(len(urls), "URLs to process: ")
     return urls
 

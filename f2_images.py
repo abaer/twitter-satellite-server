@@ -4,13 +4,8 @@ import requests
 import PIL.Image
 from io import BytesIO
 
+#IMPORTANT to prevent unrecoverable "decompression bomb" errors in PIL
 PIL.Image.MAX_IMAGE_PIXELS = 4000*4000
-
-# def get_unprocessed_urls(titles):
-#     external_t = [key for key, item in titles.items() if "news_image" not in item and 'parsed_title' in item]
-#     # external_t = [key for key, item in titles.items()]
-#     utils.log(str(len(external_t))+ " titles need article info")
-#     return external_t
 
 def make_image_key(url):
     try:
@@ -23,7 +18,6 @@ def make_image_key(url):
     return write_name
     
 def modify_image(pil_image, f):
-#     pil_image = Image.open(image)
     try:
         in_mem_file = BytesIO()
         pil_image.save(in_mem_file, format=f)
@@ -133,8 +127,6 @@ def add_image_thumbs( titles, s):
 
 def control(label_to_titles, s):
     utils.log(str(len(label_to_titles)) + " titles loaded")
-    # thumbs_needed = get_unprocessed_urls(label_to_titles)
-    # label_to_titles = add_images(thumbs_needed, label_to_titles)
     label_to_titles = add_image_thumbs(label_to_titles, s)
 
     utils.write_to_s3(

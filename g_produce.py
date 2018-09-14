@@ -2,7 +2,7 @@ import json
 import pandas as pd
 import utils
 import re
-
+ 
 def pick_image(label_info):
     image_hierarchy = ["media_url", "image_ref", "profile_image_url"]
     final_image = ""

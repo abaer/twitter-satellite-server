@@ -52,25 +52,11 @@ def make_combined_labels(stat):
     quoted_labels = prioritize_links(enh["labels"]["quoted_labels_twrefs"], enh["labels_proc"]["quoted_labels_links"])
     quoted_labels_deep = prioritize_links(enh["labels"]["quoted_labels_twrefs_deep"], enh["labels_proc"]["quoted_labels_links_deep"])
 
-    # status_labels = enh["labels"]["status_labels_twrefs"] + enh["labels_proc"]["status_labels_links"]
-    # quoted_labels = enh["labels"]["quoted_labels_twrefs"] + enh["labels_proc"]["quoted_labels_links"]
-    # quoted_labels_deep =  enh["labels"]["quoted_labels_twrefs_deep"] + enh["labels_proc"]["quoted_labels_links_deep"]
-
     combined_labels = select_deepest([quoted_labels_deep, quoted_labels, status_labels])
-    # if len(quoted_labels_deep)>0:
-    #     combined_labels = quoted_labels_deep
-    # elif len(quoted_labels) > 0:
-    #     combined_labels = quoted_labels
-    # elif len(status_labels)>0:
-    #     combined_labels = status_labels
-    # else:
-    #     combined_labels = []
 
     un_amped_labels = [utils.un_amp(label) for label in combined_labels]
     try:
         combined_labels = list(set(un_amped_labels))
-        # if len(quoted_labels_deep)>0:
-        #     print(combined_labels)
     except:
         print("problem with combined labels (d_process) ")
         print(enh)
@@ -84,7 +70,6 @@ def add_to_statuses(shorten_dict, statuses):
             if url in shorten_dict:
                 return_list.append(shorten_dict[url])
             else:
-                # print("can't find link in shorten_dict " + url)
                 return_list.append(url)
         return return_list
     

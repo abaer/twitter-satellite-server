@@ -2,8 +2,6 @@ import time
 import datetime 
 import utils
 
-# t = Twitter(auth=OAuth('22330215-FbOCxaVolV3MnEjNlUHiHdt72A3lTrhgRbW7jN3Vu', 'SuKCrFN39xdqOXMCLQuuQFeAX3lNBrxq0QHfQtWFbEjrd', 'OZO7eEaK3YNb19Weflt9jytdQ', 'oEoYGe0mliUB924JlFsz97bFwvhQpdqJao577FsYhVvy3r644w'))
-
 def get_min_max(id_list):
     if len(id_list) == 0:
         return 0,0
