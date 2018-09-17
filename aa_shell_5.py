@@ -9,6 +9,7 @@ import e_twitter_info
 import f_titles
 import f2_images
 import g_produce
+import g_produce_prime
 import time
 from threading import Thread  
 
@@ -108,6 +109,7 @@ def update_satellite(s):
     label_to_titles = f_titles.control(filtered_label_dict, s)
     label_to_titles = f2_images.control(label_to_titles, s)
     g_produce.control(filtered_label_dict, label_to_titles, s)
+    g_produce_prime.control(filtered_label_dict, label_to_titles, s)
     del s
     # del tx
     return None
