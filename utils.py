@@ -7,6 +7,10 @@ from io import BytesIO
 import pandas as pd
 from six import string_types
 
+sites_need_params = {"news.ycombinator.com":['zx'], "youtube":["v"], "abcnews.go.com":["id"], "c-span":[], "twitter.com/search":["q"]}
+sites = list(sites_need_params.keys())
+sites_set = frozenset(sites)
+
 ## REDIS CACHE UTILS
 import redis
 r = redis.StrictRedis(host='ts-test.sfvwpz.0001.use1.cache.amazonaws.com', port=6379, db=0)
@@ -211,7 +215,37 @@ def twitter_url_to_id(url):
             return_label = str(n)
     return return_label
 
+
 def clean_query_params(url):
+
+    def get_query_params(url, keep_params):
+        results = []
+        for p in keep_params: 
+            regex_string = '(?<=' + p + '=)([^&\n]*)(?=&)?'
+            x = re.search(regex_string, url)
+            if x:
+                name_val = p +"=" +x.group(1)
+                results.append(name_val)
+        return "&".join(results)
+
+    def get_matching_site(url):
+        for site in sites_set:
+            if site in url:
+                return sites_need_params[site]
+        return None
+
+    if not isinstance(url, string_types):
+        return url
+    params = get_matching_site(url)
+    base_site = re.sub('(\?|\#).*','',url)
+    if params == None:
+        return base_site
+    else:
+        keep_params = get_query_params(url, params) 
+        ret_val = base_site + "?" + keep_params if keep_params else base_site
+        return ret_val
+
+def clean_query_params_old(url):
     if not isinstance(url, string_types):
         return url
     return_label = url

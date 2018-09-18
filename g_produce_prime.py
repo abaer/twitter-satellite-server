@@ -111,7 +111,8 @@ def make_tweet_data(group):
             'profile_image_url': profile_image_url
         }
         tweet_data.append(row)
-    return tweet_data
+    tweet_data_sorted = sorted(tweet_data, key=lambda item: item['date']) 
+    return tweet_data_sorted
 
 
 def process_label_dict(filt_label_dict, label_to_titles):
