@@ -15,23 +15,27 @@ def accumulate(dict):
         return_dict[key] = count
     return {"step_list":keys, "counts":return_dict}
 
-def make_steps(count, accum):
-    accum[count] = accum.get(count,0) + 1
+def counter(key, accum, count):
+    accum[key] = accum.get(key, 0) + count
     return accum
     
 def make_meta(label_data):
     accum = {}
+    points = {}
     dates = []
     counts = []
     for label in label_data.values():
         for item in label["tweet_data"]:
             dates.append(item["date"])
             counts.append(item["count"])
-        accum = make_steps(label["count"], accum)
-    xMeta = [min(dates), max(dates)]
-    yMeta = [min(counts), max(counts)]
+        count = label["count"]
+        accum = counter(count, accum, 1)
+        points = counter(count, points, count)
+    xMeta = utils.min_max(dates)
+    yMeta = utils.min_max(counts)
     steps = accumulate(accum)
-    meta = {"xMeta":xMeta, "yMeta":yMeta, "steps":steps["step_list"], "step_counts":steps["counts"]}
+    pts = accumulate(points)
+    meta = {"xMeta":xMeta, "yMeta":yMeta, "steps":steps["step_list"], "step_counts":steps["counts"], "step_points":pts["counts"]}
     return meta
 
 def pick_image(label_info):

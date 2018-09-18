@@ -45,7 +45,7 @@ def process_label_dict(filt_label_dict, label_to_titles):
                 image_ref = ""
                 if media_url == "":
                     for s in group["statuses"]:
-                        image_ref = utils.val_or_default2(["extended_entities", "media", [0], "media_url"], s, default="")
+                        image_ref = utils.val_or_default2(["extended_entities", "media", 0, "media_url"], s, default="")
                         if image_ref != "":
                             break
                 # media_url2 = val_or_default2([label, 'news_image', 'media_url_news_thumb'], label_to_titles, default="")

@@ -11,6 +11,16 @@ from six import string_types
 import redis
 r = redis.StrictRedis(host='ts-test.sfvwpz.0001.use1.cache.amazonaws.com', port=6379, db=0)
 
+def bounds(objs, key):
+    arr = [item[key] for item in objs]
+    return [min(arr), max(arr)]
+
+def min_max(val_list):
+    if val_list:
+        return [min(val_list), max(val_list)]
+    else:
+        return [0, 0]
+
 def add_to_cache(k, v, prefix, json_type=True, ex=None):
     key = prefix + ":" + k
     try:
@@ -291,7 +301,7 @@ def list_ize(val):
 
 
 def val_or_default2(key_chain, obj, default=[]):
-    #Key_chain like this: ["extended_entities", "media", [], "video_info", "variants", [0], "url"]
+    #Key_chain like this: ["extended_entities", "media", [], "video_info", "variants", 0, "url"]
     cur_obj = obj
     for i, key in enumerate(key_chain):
         if isinstance(cur_obj, list) and key == []:
@@ -300,9 +310,7 @@ def val_or_default2(key_chain, obj, default=[]):
             else:
                 retval = []
                 for ix in range(len(cur_obj)):
-                    retval.extend(
-                        val_or_default2(key_chain[i + 1:], cur_obj[ix],
-                                       default))
+                    retval.extend(val_or_default2(key_chain[i + 1:], cur_obj[ix], default))
                 return retval
         elif key in cur_obj or valid_list_index(key, cur_obj):
             if i == len(key_chain) - 1:

@@ -10,7 +10,7 @@ def get_twitter_info(label, stat):
         clean_fill_text = utils.clean_one(quoted_status)
         return_label = utils.clean_title(clean_fill_text)
         ## NEW IMAGE REF
-        image_ref = utils.val_or_default2(["extended_entities", "media", [0], "media_url"], quoted_status, default="")
+        image_ref = utils.val_or_default2(["extended_entities", "media", 0, "media_url"], quoted_status, default="")
         ## NEW IMAGE REF
         post_data = {
             "type": "twitter_id",

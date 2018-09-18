@@ -93,6 +93,13 @@ settings_jack = {
     "t":tx,
 }
 
+settings_abrams = {
+    "list_id": "1041031320540000262",
+    "s3dir": 'data-aws/dir_abrams/',
+    "name": "Abrams",
+    "t":tx,
+}
+
 def update_satellite(s):
     # tx = Twitter(
     #     auth=OAuth('1016457979703390208-NoKu9rFviudg0o0aQbOWLcllV9qI9Y',
@@ -117,7 +124,7 @@ def update_satellite(s):
 
 def control():
     # setting_list = [settings_alan, settings_jd, settings_kv, settings_kaveh, settings_ingrahm, settings_ottolenghi]
-    setting_list = [settings_alan, settings_jd, settings_kaveh, settings_ottolenghi, settings_om, settings_jardine, settings_jack]
+    setting_list = [settings_alan, settings_jd, settings_kaveh, settings_ottolenghi, settings_om, settings_jardine, settings_abrams]
     # setting_list = [settings_kaveh, settings_om]
     
     for s in setting_list:
