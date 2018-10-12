@@ -6,6 +6,7 @@ import re
 from io import BytesIO
 import pandas as pd
 from six import string_types
+from collections import Counter
 
 sites_need_params = {"news.ycombinator.com":['zx'], "youtube":["v"], "abcnews.go.com":["id"], "c-span":[], "twitter.com/search":["q"]}
 sites = list(sites_need_params.keys())
@@ -190,9 +191,16 @@ def get_quoted_status(status):
         else:
             print("? Anomylous embed")
     elif "retweeted_status" in status:
+
         quoted_status = status['retweeted_status']
     
     return quoted_status
+
+def pick_winner(status_list):
+    texts = [get_quoted_status(s)["full_text"] for s in status_list]
+    counts = Counter(texts)
+    sorted_counts = sorted(counts.items(), key=lambda kv: kv[1], reverse=True)
+    return sorted_counts[0][0]
 
 # def get_quoted_status(status):
 #     quoted_status = {}
@@ -217,7 +225,6 @@ def twitter_url_to_id(url):
 
 
 def clean_query_params(url):
-
     def get_query_params(url, keep_params):
         results = []
         for p in keep_params: 

@@ -104,7 +104,7 @@ def make_thumb(top_image):
     except Exception as e: 
         print(e)
         return errorReturn(top_image)
-    utils.add_to_cache(top_image, f_base, "thumbs")
+    utils.add_to_cache(top_image, f_base, "thumbs", ex=432800)
     return f_base
 
 def add_image_thumbs( titles, s):

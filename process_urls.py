@@ -15,7 +15,8 @@ def process_url_list(urls, handler_fn, result_obj={}):
 
     start = time.time()
     # Using 7 workers was the sweet spot on the low-RAM host I used, but you should tweak this
-    with concurrent.futures.ThreadPoolExecutor(max_workers=10) as executor:
+    # Was 10
+    with concurrent.futures.ThreadPoolExecutor(max_workers=7) as executor:
     # Start the load operations and mark each future with its URL
         future_to_url = {executor.submit(load_url, link): link for link in urls}
         for future in concurrent.futures.as_completed(future_to_url):

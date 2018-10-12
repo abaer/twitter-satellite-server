@@ -127,7 +127,7 @@ def get_title_data(url):
                 }
         ## CACHE
 
-        utils.add_to_cache(url, row, "titles")
+        utils.add_to_cache(url, row, "titles", ex=432800)
         ## CACHE
         return row
 

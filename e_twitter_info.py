@@ -81,7 +81,7 @@ def update_user_info(filtered_label_dict, s):
         #Do Labels
         # if str(l).isdigit():
         if str(l).isdigit() and "label_info" not in val:
-            post_data = get_twitter_info(l, val["statuses"][-1])
+            post_data = get_twitter_info(l, val["statuses"][0])
             filtered_label_dict[l]["label_info"] = post_data
             if "user" in post_data:
                 all_users.add(post_data["user"])

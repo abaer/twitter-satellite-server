@@ -71,7 +71,7 @@ def get_combined_labels(stat, level = 1):
             if embed_status == None:
                 embed_status = s["t"].statuses.show(id=embed_id, tweet_mode="extended")
                 if cache_on:
-                    utils.add_to_cache(embed_id, embed_status, "tweets_by_id")
+                    utils.add_to_cache(embed_id, embed_status, "tweets_by_id", ex=432800)
             print("Before: ")
             print(len(refs_quoted["urls"]), len(refs_quoted["video"]), len(refs_quoted["image_ref"]), len(refs_quoted["embed"]))
             refs_quoted = get_labels_at_level(embed_status, refs_quoted)

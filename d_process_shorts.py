@@ -7,7 +7,8 @@ def get_short_url_list(statuses):
     lookup_urls = set()
     for s in statuses:
         lb = s["satellite_enhanced"]["labels"]
-        candidates = lb["status_labels_links"] + lb["quoted_labels_links"] + lb["quoted_labels_links_deep"]
+        # candidates = lb["status_labels_links"] + lb["quoted_labels_links"] + lb["quoted_labels_links_deep"]
+        candidates = select_deepest([lb["quoted_labels_links_deep"], lb["quoted_labels_links"], lb["status_labels_links"]])
         for url in candidates:
             m = re.findall('https?:\/\/.*?\.(.*?)/',url)
             if m and m[0] and len(m[0]) == 2:
@@ -18,7 +19,7 @@ def get_short_url_list(statuses):
 def process_url(data, url, result_obj):
     ## CACHE
     expanded_url = utils.clean_query_params(data.request.url)
-    utils.add_to_cache(url, expanded_url, "short_urls", json_type=False)
+    utils.add_to_cache(url, expanded_url, "short_urls", json_type=False, ex=432800)
     ## CACHE
     result_obj[url] = expanded_url
     return True
