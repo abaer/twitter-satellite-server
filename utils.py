@@ -306,7 +306,7 @@ def getDefaultSettings():
                    'oEoYGe0mliUB924JlFsz97bFwvhQpdqJao577FsYhVvy3r644w'))
     # s3dir = 'data-aws/gen_two/'
     s3dir = 'data-aws/gen_two/'
-    settings = {"t":t, "s3dir":s3dir}
+    settings = {"t":t, "s3dir":s3dir, "name":"alan"}
     return settings
 
 def key_exists(key_chain, obj):

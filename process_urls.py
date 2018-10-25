@@ -10,7 +10,8 @@ def process_url_list(urls, handler_fn, result_obj={}):
     headers = {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_3) AppleWebKit/604.5.6 (KHTML, like Gecko) Version/11.0.3 Safari/604.5.6'}
     
     def load_url(url):
-        r = requests.get(url, headers=headers, allow_redirects=True, timeout=3)
+        # r = requests.get(url, headers=headers, allow_redirects=True, timeout=3)
+        r = requests.get(url, allow_redirects=True, timeout=5)
         return r
 
     start = time.time()

@@ -25,7 +25,7 @@ tx = Twitter(
                 'dDnxDeRdkfZJOau84GzMJNgtDUwe8KR2CRBTj7BUjY6DHUH0RT'))
 settings_alan = {
     "s3dir": 'data-aws/gen_two/',
-    "name": "Alan",
+    "name": "abbaer",
     "t" : alant
 }
 
@@ -46,7 +46,7 @@ settings_ingrahm = {
 settings_jd = {
     "s3dir": 'data-aws/test_dir_d/',
     "list_id": "1016484051295920133",
-    "name": "Jeff Dean",
+    "name": "JeffDean",
     "t" : tx
 }
 
@@ -60,14 +60,14 @@ settings_kv = {
 settings_ottolenghi = {
     "s3dir": 'data-aws/test_dir_ottolenghi/',
     "list_id": "1018690219305029633",
-    "name": "Ottolenghi",
+    "name": "ottolenghi",
     "t" : tx
 }
 
 settings_kaveh = {
     "s3dir": 'data-aws/test_dir_akbar_2/',
     "list_id": "1018863470798888960",
-    "name": "Kaveh Akbar",
+    "name": "KavehAkbar",
     "t" : tx
 }
 
@@ -75,38 +75,39 @@ settings_kaveh = {
 settings_om = {
     "list_id": "1019753530717024258",
     "s3dir": 'data-aws/test_dir_om_2/',
-    "name": "OM",
+    "name": "om",
     "t":tx,
 }
 
 settings_jardine = {
     "list_id": "1021477742699786240",
     "s3dir": 'data-aws/test_dir_jardine/',
-    "name": "Jardine",
+    "name": "jardine",
     "t":tx,
 }
 
 settings_jack = {
     "list_id": "1026938305827545088",
     "s3dir": 'data-aws/dir_jack/',
-    "name": "Jack",
+    "name": "jack",
     "t":tx,
 }
 
 settings_abrams = {
     "list_id": "1041031320540000262",
     "s3dir": 'data-aws/dir_abrams/',
-    "name": "Abrams",
+    "name": "abrams",
+    "t":tx,
+}
+
+settings_una = {
+    "list_id": "1055506883430223873",
+    "s3dir": 'data-aws/una/',
+    "name": "una",
     "t":tx,
 }
 
 def update_satellite(s):
-    # tx = Twitter(
-    #     auth=OAuth('1016457979703390208-NoKu9rFviudg0o0aQbOWLcllV9qI9Y',
-    #                'qomxXHpgG4ZXE5749DDe06cojLJGNspeXbXGh1XwmRQCx',
-    #                'wCs284AjAryGTOrTqt2g7OCOz',
-    #                'dDnxDeRdkfZJOau84GzMJNgtDUwe8KR2CRBTj7BUjY6DHUH0RT'))
-    # s["t"] = tx
     date_filtered_batch = a_get_pipe.control(s) 
     batch_enhanced = b_enhance.control(date_filtered_batch, s)
     batch_enhanced = c_enhance_deep.control(batch_enhanced, s)
@@ -115,7 +116,7 @@ def update_satellite(s):
     filtered_label_dict = e_twitter_info.control(filtered_label_dict, s)
     label_to_titles = f_titles.control(filtered_label_dict, s)
     label_to_titles = f2_images.control(label_to_titles, s)
-    g_produce.control(filtered_label_dict, label_to_titles, s)
+    # g_produce.control(filtered_label_dict, label_to_titles, s)
     g_produce_prime.control(filtered_label_dict, label_to_titles, s)
     del s
     # del tx
@@ -124,7 +125,7 @@ def update_satellite(s):
 
 def control():
     # setting_list = [settings_alan, settings_jd, settings_kv, settings_kaveh, settings_ingrahm, settings_ottolenghi]
-    setting_list = [settings_alan, settings_jd, settings_kaveh, settings_ottolenghi, settings_om, settings_jardine, settings_abrams]
+    setting_list = [settings_alan, settings_jd, settings_kaveh, settings_ottolenghi, settings_om, settings_abrams, settings_jack, settings_una]
     # setting_list = [settings_kaveh, settings_om]
     
     for s in setting_list:

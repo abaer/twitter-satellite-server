@@ -13,12 +13,20 @@ def get_short_url_list(statuses):
             m = re.findall('https?:\/\/.*?\.(.*?)/',url)
             if m and m[0] and len(m[0]) == 2:
                 lookup_urls.add(url)
+            elif url.find("bloom.bg") != -1:
+                lookup_urls.add(url)
     print(str(len(lookup_urls)) + " in URL list")
     return list(lookup_urls)
 
 def process_url(data, url, result_obj):
     ## CACHE
-    expanded_url = utils.clean_query_params(data.request.url)
+    ## Bloomberg special processing. Need way to know it's bad. 
+    if len(data.history) > 0 and data.url.find("tosv2.html") > -1:
+        expanded_url_full = data.history[-1].url
+    else:
+        expanded_url_full = data.url
+
+    expanded_url = utils.clean_query_params(expanded_url_full)
     utils.add_to_cache(url, expanded_url, "short_urls", json_type=False, ex=432800)
     ## CACHE
     result_obj[url] = expanded_url

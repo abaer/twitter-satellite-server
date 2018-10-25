@@ -159,11 +159,18 @@ def control(filt_label_dict, label_to_titles, s):
     sorted_label_data_list = label_data_to_list(label_data)
     meta = make_meta(label_data)
     final_data = {"label_data":sorted_label_data_list, "meta_data": meta}
-    name = "d3-" + utils.file_date() + "-label_format" + ".json"
+    # name = "d3-" + utils.file_date() + "-label_format" + ".json"
+    # utils.write_to_s3(
+    #     json.dumps(final_data),
+    #     name,
+    #     directory=s["s3dir"] + 'production/',
+    #     public=True)
+    
+    normalized_name = s["name"] + ".json"
     utils.write_to_s3(
         json.dumps(final_data),
-        name,
-        directory=s["s3dir"] + 'production/',
+        normalized_name,
+        directory='data-aws/shared_data/production/'+utils.file_date() + "/",
         public=True)
     return None
 
